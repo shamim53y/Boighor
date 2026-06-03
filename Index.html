@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বইঘর - প্রিমিয়াম বাংলা ইবুক</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Georgia, serif;
+            background: #0a0a0a;
+            color: #e8e0d0;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        .header {
+            background: #1a0a00;
+            border-bottom: 2px solid #c9a227;
+            padding: 15px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header h1 {
+            color: #c9a227;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        
+        /* All Pages */
+        .page {
+            display: none;
+            padding: 80px 20px 20px;
+            min-height: 100vh;
+        }
+        
+        .page.show {
+            display: block;
+        }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .hero h2 {
+            color: #c9a227;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            color: #b8a88a;
+            margin-bottom: 20px;
+        }
+        
+        .badge {
+            border: 1px solid #c9a227;
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: #c9a227;
+            display: inline-block;
+        }
+        
+        /* Features */
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px 10px;
+            flex-wrap: wrap;
+        }
+        
+        .feature {
+            text-align: center;
+            color: #8a7a6a;
+        }
+        
+        .feature div {
+            font-size: 2em;
+            color: #c9a227;
+        }
+        
+        /* Bundle */
+        .bundle {
+            background: #1a0a00;
+            border: 2px solid #c9a227;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .bundle h3 {
+            color: #c9a227;
+            margin-bottom: 10px;
+        }
+        
+        .bundle .price {
+            font-size: 2.5em;
+            color: #c9a227;
+            font-weight: bold;
+        }
+        
+        .bundle .price span {
+            font-size: 0.5em;
+            color: #666;
+            text-decoration: line-through;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: #c9a227;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            font-size: 1em;
+            margin-top: 15px;
+        }
+        
+        .btn-full {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* Book Cards */
+        .book {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .book-cover {
+            height: 200px;
+            background: #2d1b0e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c9a227;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .book-info {
+            padding: 25px;
+        }
+        
+        .book-info h3 {
+            color: #e8e0d0;
+            margin-bottom: 10px;
+        }
+        
+        .book-info p {
+            color: #8a7a6a;
+            margin-bottom: 15px;
+        }
+        
+        .book-info .price {
+            font-size: 1.8em;
+            color: #c9a227;
+            font-weight: bold;
+        }
+        
+        .book-info .price span {
+            font-size: 0.6em;
+            color: #666;
+            text-decoration: line-through;
+        }
+        
+        /* Form */
+        .form-box {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #1a1a1a;
+            border: 2px solid #c9a227;
+            border-radius: 15px;
+            padding: 30px;
+        }
+        
+        .form-box h2 {
+            color: #c9a227;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-box input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+            border-radius: 10px;
+            background: #0a0a0a;
+            color: #e8e0d0;
+            font-size: 1em;
+        }
+        
+        .info-box {
+            background: #0a0a0a;
+            border: 1px solid #c9a227;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .info-box .name {
+            color: #c9a227;
+        }
+        
+        .info-box .price {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        /* Payment */
+        .pay-box {
+            background: #0a0a0a;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+        
+        .pay-box h4 {
+            color: #c9a227;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .pay-box .num {
+            font-size: 1.5em;
+            text-align: center;
+            color: #e8e0d0;
+            font-weight: bold;
+        }
+        
+        .pay-box ol {
+            color: #8a7a6a;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .pay-box li {
+            margin-bottom: 5px;
+        }
+        
+        /* PDF */
+        .pdf-box {
+            display: none;
+            background: #1a0a00;
+            border: 2px solid #c9a227;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .pdf-box a {
+            display: block;
+            background: #c9a227;
+            color: #000;
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #050505;
+            padding: 40px 20px;
+            border-top: 2px solid #c9a227;
+            text-align: center;
+        }
+        
+        .footer p {
+            color: #8a7a6a;
+            margin: 5px 0;
+        }
+        
+        .footer a {
+            color: #c9a227;
+            text-decoration: none;
+        }
+        
+        /* WhatsApp */
+        .wa {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            text-decoration: none;
+        }
+        
+        /* Center */
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>📚 বইঘর</h1>
+    </div>
+
+    <!-- PAGE 1: HOME -->
+    <div id="p1" class="page show">
+        <div class="hero">
+            <h2>বেস্টসেলার বই সংগ্রহ</h2>
+            <p>বিশ্বের সেরা বইগুলো এখন বাংলায়</p>
+            <span class="badge">✦ ২৪/৭ সাপোর্ট ✦</span>
+        </div>
+        
+        <div class="features">
+            <div class="feature"><div>⚡</div><div>তৎক্ষণাৎ</div></div>
+            <div class="feature"><div>🔒</div><div>নিরাপদ</div></div>
+            <div class="feature"><div>📱</div><div>সব ডিভাইস</div></div>
+            <div class="feature"><div>💎</div><div>প্রিমিয়াম</div></div>
+        </div>
+        
+        <div class="bundle">
+            <h3>✦ বান্ডেল অফার ✦</h3>
+            <p style="color: #8a7a6a;">৩টি বই একসাথে</p>
+            <div class="price">৳২৪৯ <span>৳২৯৭</span></div>
+            <p style="color: #c9a227;">সাশ্রয় ৳৪৮!</p>
+            <button class="btn" onclick="go(2)">বান্ডেল কিনুন →</button>
+        </div>
+        
+        <div class="center" style="padding: 30px;">
+            <button class="btn" onclick="go(2)">সব বই দেখুন →</button>
+        </div>
+    </div>
+
+    <!-- PAGE 2: BOOKS -->
+    <div id="p2" class="page">
+        <h2 class="center" style="color: #c9a227; margin-bottom: 30px;">✦ আমাদের বই ✦</h2>
+        
+        <!-- Book 1 -->
+        <div class="book">
+            <div class="book-cover">🌅<<br>The Miracle<br>Morning</div>
+            <div class="book-info">
+                <h3>The Miracle Morning</h3>
+                <p>✍️ হাল এলরোড | সেলফ হেল্প</p>
+                <p style="color: #c9a227;">★★★★★ (২,৩৪৫ রিভিউ)</p>
+                <div class="price">৳৯৯ <span>৳১৯৯</span></div>
+                <button class="btn btn-full" onclick="buy('The Miracle Morning', '99')">কিনুন →</button>
+            </div>
+        </div>
+        
+        <!-- Book 2 -->
+        <div class="book">
+            <div class="book-cover">🧠<<br>Power of<br>Subconscious</div>
+            <div class="book-info">
+                <h3>The Power of Subconscious Mind</h3>
+                <p>✍️ জোসেফ মারফি | মনোবিজ্ঞান</p>
+                <p style="color: #c9a227;">★★★★★ (১,৮৯০ রিভিউ)</p>
+                <div class="price">৳৯৯ <span>৳১৯৯</span></div>
+                <button class="btn btn-full" onclick="buy('The Power of Subconscious Mind', '99')">কিনুন →</button>
+            </div>
+        </div>
+        
+        <!-- Book 3 -->
+        <div class="book">
+            <div class="book-cover">💰<<br>Psychology<br>of Money</div>
+            <div class="book-info">
+                <h3>The Psychology of Money</h3>
+                <p>✍️ মরগ্যান হাউসেল | ফাইন্যান্স</p>
+                <p style="color: #c9a227;">★★★★★ (৩,১২০ রিভিউ)</p>
+                <div class="price">৳৯৯ <span>৳১৯৯</span></div>
+                <button class="btn btn-full" onclick="buy('The Psychology of Money', '99')">কিনুন →</button>
+            </div>
+        </div>
+        
+        <div class="center" style="padding: 20px;">
+            <button class="btn" onclick="go(1)">← হোমে ফিরুন</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3: SIGNUP -->
+    <div id="p3" class="page">
+        <div class="form-box">
+            <h2>📚 বইঘর</h2>
+            <p class="center" style="color: #8a7a6a; margin-bottom: 20px;">ইমেইল দিয়ে সাইনআপ করুন</p>
+            
+            <div class="info-box">
+                <div class="name" id="bname">বই</div>
+                <div class="price" id="bprice">৳০</div>
+            </div>
+            
+            <input type="email" id="em" placeholder="📧 আপনার ইমেইল" required>
+            <input type="text" id="nm" placeholder="👤 আপনার নাম" required>
+            <input type="tel" id="ph" placeholder="📱 মোবাইল নাম্বার" required>
+            
+            <button class="btn btn-full" onclick="next()">এগিয়ে যান →</button>
+            <button class="btn btn-full" onclick="go(2)" style="background: #333; color: #c9a227; margin-top: 10px;">← ফিরুন</button>
+        </div>
+    </div>
+
+    <!-- PAGE 4: PAYMENT -->
+    <div id="p4" class="page">
+        <div class="form-box">
+            <h2>💳 পেমেন্ট</h2>
+            
+            <div class="info-box">
+                <div class="name" id="pbook">বই</div>
+                <div class="price" id="pprice">৳০</div>
+            </div>
+            
+            <div class="pay-box">
+                <h4>📲 বিকাশ</h4>
+                <div class="num">০১৮১৯৪৮১৯২৫</div>
+                <ol>
+                    <li>*২৪৭# ডায়াল করুন</li>
+                    <li>Send Money সিলেক্ট করুন</li>
+                    <li>০১৮১৯৪৮১৯২৫ দিন</li>
+                    <li>টাকা এন্টার করুন</li>
+                    <li>রেফারেন্সে বইয়ের নাম</li>
+                    <li>পিন দিয়ে কনফার্ম</li>
+                </ol>
+            </div>
+            
+            <div class="pay-box">
+                <h4>📲 নগদ</h4>
+                <div class="num">০১৮১৯৪৮১৯২৫</div>
+                <ol>
+                    <li>*১৬৭# ডায়াল করুন</li>
+                    <li>Send Money সিলেক্ট করুন</li>
+                    <li>০১৮১৯৪৮১৯২৫ দিন</li>
+                    <li>টাকা এন্টার করুন</li>
+                    <li>রেফারেন্সে বইয়ের নাম</li>
+                    <li>পিন দিয়ে কনফার্ম</li>
+                </ol>
+            </div>
+            
+            <a href="https://wa.me/8801819481925" class="btn btn-full" target="_blank">💬 WhatsApp এ স্ক্রিনশট পাঠান</a>
+            
+            <button class="btn btn-full" onclick="getpdf()" style="background: #c9a227; margin-top: 15px;">✅ পেমেন্ট করেছি (PDF)</button>
+            
+            <div class="pdf-box" id="pdfbox">
+                <div style="color: #c9a227; font-size: 1.2em;">🎉 সফল!</div>
+                <p style="color: #8a7a6a; margin: 10px 0;">PDF ডাউনলোড করুন:</p>
+                <a href="#" id="pdflink" target="_blank">📥 ডাউনলোড</a>
+            </div>
+            
+            <button class="btn btn-full" onclick="go(1)" style="background: #333; color: #c9a227; margin-top: 15px;">← হোমে ফিরুন</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p style="color: #c9a227; font-size: 1.2em;">📚 বইঘর</p>
+        <p>🎧 ২৪/৭ সাপোর্ট</p>
+        <p>📱 <a href="https://wa.me/8801819481925">01819481925</a></p>
+        <p>📧 <a href="mailto:shamim1244aa@gmail.com">shamim1244aa@gmail.com</a></p>
+        <p style="margin-top: 20px; color: #666;">© ২০২৫ বইঘর 🇧🇩</p>
+    </div>
+
+    <!-- WHATSAPP -->
+    <a href="https://wa.me/8801819481925" class="wa" target="_blank">💬</a>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // পেজ সুইচ
+        function go(n) {
+            document.getElementById('p1').classList.remove('show');
+            document.getElementById('p2').classList.remove('show');
+            document.getElementById('p3').classList.remove('show');
+            document.getElementById('p4').classList.remove('show');
+            document.getElementById('p' + n).classList.add('show');
+            window.scrollTo(0, 0);
+        }
+        
+        // বই কেনার তথ্য
+        var bookName = '';
+        var bookPrice = '';
+        
+        function buy(name, price) {
+            bookName = name;
+            bookPrice = price;
+            document.getElementById('bname').innerText = name;
+            document.getElementById('bprice').innerText = '৳' + price;
+            go(3);
+        }
+        
+        // সাইনআপ থেকে পেমেন্ট
+        function next() {
+            var email = document.getElementById('em').value;
+            var name = document.getElementById('nm').value;
+            var phone = document.getElementById('ph').value;
+            
+            if(email == '' || name == '' || phone == '') {
+                alert('সব ঘর পূরণ করুন!');
+                return;
+            }
+            
+            document.getElementById('pbook').innerText = bookName;
+            document.getElementById('pprice').innerText = '৳' + bookPrice;
+            go(4);
+        }
+        
+        // PDF লিংক
+        function getpdf() {
+            var links = {
+                'The Miracle Morning': 'https://drive.google.com/file/d/11GZfjSn-7SXv7xhLF3K2e9-OtscV-hMj/view?usp=drivesdk',
+                'The Power of Subconscious Mind': 'https://drive.google.com/file/d/13baywKhAuczdCHtf-qmLznvqL5Rweajz/view?usp=drivesdk',
+                'The Psychology of Money': 'https://drive.google.com/file/d/1Y1B8s-SqZDjgqRA98OzY1dVE5ZFQbtpV/view?usp=drivesdk'
+            };
+            
+            var link = links[bookName] || links['The Miracle Morning'];
+            document.getElementById('pdflink').href = link;
+            document.getElementById('pdfbox').style.display = 'block';
+            alert('✅ PDF ডাউনলোড লিংক তৈরি!');
+        }
+    </script>
+
+</body>
+  </html>
+  
