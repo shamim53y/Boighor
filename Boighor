@@ -1,0 +1,599 @@
+DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বইঘর - বাংলা ইবুক স্টোর</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Roboto', 'Trebuchet MS', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #ffffff;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #27ae60;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo:hover {
+            color: #1e8449;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        /* Books Section */
+        .books-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            color: #27ae60;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .books-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Book Card */
+        .book-card {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .book-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .book-title {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .book-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+
+        .book-price {
+            font-size: 24px;
+            color: #27ae60;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .buy-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+
+        .buy-btn:hover {
+            background-color: #1e8449;
+        }
+
+        .buy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f5f5f5;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer-text strong {
+            color: #27ae60;
+        }
+
+        /* Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #27ae60;
+        }
+
+        .modal h2 {
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #27ae60;
+            box-shadow: 0 0 5px rgba(39, 174, 96, 0.3);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background-color: #1e8449;
+        }
+
+        .cancel-btn {
+            width: 100%;
+            background-color: #e0e0e0;
+            color: #333;
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background-color: #ccc;
+        }
+
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideInSuccess 0.3s ease;
+        }
+
+        @keyframes slideInSuccess {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 24px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .books-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .modal-content {
+                margin: 20% auto;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .hero {
+                padding: 40px 15px;
+            }
+
+            .hero h1 {
+                font-size: 20px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .book-title {
+                font-size: 18px;
+            }
+
+            .book-price {
+                font-size: 20px;
+            }
+
+            .buy-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <a href="#" class="logo">📚 বইঘর</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>বাংলা ইবুক কিনুন</h1>
+            <p>তৎক্ষণাৎ ডাউনলোড করুন এবং শিখতে শুরু করুন</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <h2 class="section-title">আমাদের জনপ্রিয় বই</h2>
+            
+            <!-- Books Container -->
+            <div class="books-container">
+                <!-- Book 1 -->
+                <div class="book-card">
+                    <div class="book-icon">🐍</div>
+                    <h3 class="book-title">পাইথন শিখুন</h3>
+                    <p class="book-description">শূন্য থেকে শুরু করে পাইথন প্রোগ্রামিং এ দক্ষ হয়ে উঠুন। সহজ উদাহরণ সহ সম্পূর্ণ গাইড।</p>
+                    <div class="book-price">৳১৯৯</div>
+                    <button class="buy-btn" onclick="openModal('পাইথন শিখুন', 199)">কিনুন</button>
+                </div>
+
+                <!-- Book 2 -->
+                <div class="book-card">
+                    <div class="book-icon">📱</div>
+                    <h3 class="book-title">ডিজিটাল মার্কেটিং</h3>
+                    <p class="book-description">ফেসবুক, ইনস্টাগ্রাম এবং গুগল বিজ্ঞাপনে দক্ষতা অর্জন করুন। ব্যবসা বৃদ্ধির কৌশল জানুন।</p>
+                    <div class="book-price">৳২৯৯</div>
+                    <button class="buy-btn" onclick="openModal('ডিজিটাল মার্কেটিং', 299)">কিনুন</button>
+                </div>
+
+                <!-- Book 3 -->
+                <div class="book-card">
+                    <div class="book-icon">💼</div>
+                    <h3 class="book-title">ফ্রিল্যান্সিং গাইড</h3>
+                    <p class="book-description">বাড়িতে বসে অনলাইনে আয় করুন। ফাইভার, আপওয়ার্ক এবং অন্যান্য প্ল্যাটফর্মে সফল হওয়ার রহস্য।</p>
+                    <div class="book-price">৳৩৯৯</div>
+                    <button class="buy-btn" onclick="openModal('ফ্রিল্যান্সিং গাইড', 399)">কিনুন</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Purchase -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="success-message" id="successMessage">
+                ✓ অর্ডার সফলভাবে সম্পন্ন হয়েছে! আপনার ইবুক ডাউনলোড লিংক ইমেইলে পাঠানো হয়েছে।
+            </div>
+            <h2 id="bookTitle">বই কিনুন</h2>
+            <p>মূল্য: <strong id="bookPrice">০</strong></p>
+            
+            <form id="purchaseForm" onsubmit="handlePurchase(event)">
+                <div class="form-group">
+                    <label for="customerName">আপনার নাম *</label>
+                    <input type="text" id="customerName" name="name" required placeholder="আপনার সম্পূর্ণ নাম লিখুন">
+                </div>
+
+                <div class="form-group">
+                    <label for="customerEmail">ইমেইল ঠিকানা *</label>
+                    <input type="email" id="customerEmail" name="email" required placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="customerPhone">ফোন নম্বর *</label>
+                    <input type="tel" id="customerPhone" name="phone" required placeholder="01700000000">
+                </div>
+
+                <div class="form-group">
+                    <label for="paymentMethod">পেমেন্ট পদ্ধতি *</label>
+                    <select id="paymentMethod" name="payment" required>
+                        <option value="">নির্বাচন করুন</option>
+                        <option value="bkash">বিকাশ</option>
+                        <option value="nagad">নগদ</option>
+                        <option value="rocket">রকেট</option>
+                        <option value="card">ডেবিট/ক্রেডিট কার্ড</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="checkout-btn">নিশ্চিত করুন এবং পেমেন্ট করুন</button>
+                <button type="button" class="cancel-btn" onclick="closeModal()">বাতিল</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="footer-text">যোগাযোগ: <strong>info@boighor.com</strong> | ফোন: <strong>+88 01700000000</strong></p>
+            <p class="footer-text" style="margin-top: 10px;">© ২০২৬ বইঘর - সকল অধিকার সংরক্ষিত</p>
+        </div>
+    </footer>
+
+    <script>
+        // Modal Management
+        const modal = document.getElementById('purchaseModal');
+        const successMessage = document.getElementById('successMessage');
+        let currentBook = {
+            title: '',
+            price: 0
+        };
+
+        function openModal(bookTitle, bookPrice) {
+            currentBook.title = bookTitle;
+            currentBook.price = bookPrice;
+            
+            document.getElementById('bookTitle').textContent = bookTitle + ' কিনুন';
+            document.getElementById('bookPrice').textContent = '৳' + bookPrice;
+            
+            // Reset form
+            document.getElementById('purchaseForm').reset();
+            successMessage.classList.remove('show');
+            
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            successMessage.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Handle Purchase Form
+        function handlePurchase(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const phone = document.getElementById('customerPhone').value;
+            const payment = document.getElementById('paymentMethod').value;
+            
+            // Validation
+            if (!name || !email || !phone || !payment) {
+                alert('অনুগ্রহ করে সব তথ্য পূরণ করুন');
+                return;
+            }
+            
+            // Phone validation (বাংলাদেশী ফোন নম্বর)
+            const phoneRegex = /^(\+88|88)?01[3-9]\d{8}$/;
+            if (!phoneRegex.test(phone)) {
+                alert('অনুগ্রহ করে সঠিক ফোন নম্বর দিন (যেমন: 01700000000)');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('অনুগ্রহ করে সঠিক ইমেইল দিন');
+                return;
+            }
+            
+            // Store order details (in real app, this would go to a server)
+            const orderData = {
+                bookTitle: currentBook.title,
+                bookPrice: currentBook.price,
+                customerName: name,
+                customerEmail: email,
+                customerPhone: phone,
+                paymentMethod: payment,
+                orderDate: new Date().toLocaleString('bn-BD'),
+                orderID: 'ORD-' + Date.now()
+            };
+            
+            // Store in localStorage (for demo purposes)
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(orderData);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Show success message
+            successMessage.classList.add('show');
+            
+            // Clear form
+            document.getElementById('purchaseForm').reset();
+            
+            // Log order details (in real app, this would be sent to server)
+            console.log('অর্ডার সফল:', orderData);
+            
+            // Close modal after 3 seconds
+            setTimeout(() => {
+                closeModal();
+            }, 3000);
+        }
+
+        // Prevent form submission on Enter key in input fields
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && event.target.tagName !== 'BUTTON') {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+  </html>
+https://buy.stripe.com/test_9B68wO9nB0Ex7hD6AW77O00
